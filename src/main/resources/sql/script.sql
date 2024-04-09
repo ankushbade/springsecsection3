@@ -11,8 +11,8 @@ CREATE TABLE `authorities` (
   `authority` varchar(45) NOT NULL,
   PRIMARY KEY (`id`));
 
-INSERT IGNORE INTO `users` VALUES (NULL, 'spring', '12345', '1');
-INSERT IGNORE INTO `authorities` VALUES (NULL, 'spring', 'write');
+INSERT  INTO `users` VALUES (NULL, 'spring', '12345', '1');
+INSERT  INTO `authorities` VALUES (NULL, 'spring', 'write');
 
 CREATE TABLE `customer` (
   `id` int NOT NULL AUTO_INCREMENT,
