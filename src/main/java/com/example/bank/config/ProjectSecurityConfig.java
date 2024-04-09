@@ -1,21 +1,25 @@
 package com.example.bank.config;
 
+import javax.sql.DataSource;
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
+import org.springframework.security.provisioning.JdbcUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
 public class ProjectSecurityConfig 
 {
 	 @Bean
-	    SecurityFilterChain defaultSecurityFilterChain(HttpSecurity http) throws Exception {
+	 SecurityFilterChain defaultSecurityFilterChain(HttpSecurity http) throws Exception {
 
 	        /**
 	         *  Below is the custom security configurations
@@ -37,7 +41,7 @@ public class ProjectSecurityConfig
 	      
 	    }
 	 
-	 @Bean
+	/* @Bean
 	 public InMemoryUserDetailsManager userDetailsService()
 	 {
 		 /*Approach 1 : Using withDefaultPasswordEncoder() method
@@ -59,7 +63,7 @@ public class ProjectSecurityConfig
 		 /*Approach 2 : Using NoOpPasswordEncoder Bean
 			while creating the user details*/
 		 
-		 UserDetails admin = User.withUsername("admin")
+		/* UserDetails admin = User.withUsername("admin")
 				 .password("12345")
 				 .authorities("admin")
 				 .build();
@@ -71,6 +75,12 @@ public class ProjectSecurityConfig
 		 
 		 return  new InMemoryUserDetailsManager(admin,user);
 		 
+	 }
+	 */
+	 @Bean
+	 public UserDetailsService userDetailsService(DataSource dataSource)
+	 {
+		 return new JdbcUserDetailsManager(dataSource);
 	 }
 	 
 	 @Bean
