@@ -26,8 +26,9 @@ public class ProjectSecurityConfig
 	         */
 
 		 http.csrf((csrf) -> csrf.disable())
+		 .headers(headers -> headers.frameOptions().disable())
 		 .authorizeHttpRequests((requests) -> requests.requestMatchers("/myAccount","/myBalance","/myLoans","/myCards").authenticated()
-	                        .requestMatchers("/notices","/contact","/register").permitAll())
+	                        .requestMatchers("/notices","/contact","/register","/h2-console/**").permitAll())
 	                .formLogin(Customizer.withDefaults())
 	                .httpBasic(Customizer.withDefaults());
 	        return http.build();
